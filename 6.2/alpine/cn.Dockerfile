@@ -96,8 +96,6 @@ RUN set -eux; \
 	\
 	rm -rf /etc/localtime; \
 	ln -s /usr/share/zoneinfo/PRC /etc/localtime; \
-	mkdir -p /usr/share/zoneinfo/Asia; \
-	ln -s /usr/share/zoneinfo/PRC /usr/share/zoneinfo/Asia/Shanghai; \
 	echo "Asia/Shanghai" >  /etc/timezone; \
 	\
 	apk add --no-network --virtual .redis-rundeps $runDeps; \
