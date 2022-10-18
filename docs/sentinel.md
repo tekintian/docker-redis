@@ -1,4 +1,4 @@
-# redis-sentinel
+# redis-sentinel && redis-server
 
 配置文件路径：/usr/local/etc/redis/sentinel.conf
 
@@ -18,6 +18,18 @@ docker run --name sentinel -itd -p 26379:26379 \
 docker run --name sentinel -itd -p 26379:26379 \
 	-e REDIS_MASTER_HOST="192.168.2.8" -e REDIS_MASTER_PASSWORD="123456" \
 	-v $PWD/redis:/usr/local/etc/redis \
+	tekintian/alpine-redis-sentinel:6.2
+~~~
+
+
+## 同时运行 redis-server 和redis-sentinel
+默认只运行 redis-sentinel， 如果需要同时运行server和sentinel
+只需要加上环境变量 -e RUN_REDIS_PORT="6379"即可
+如：
+~~~sh
+docker run --name sentinel -itd -p 26379:26379 \
+	-e REDIS_MASTER_HOST="192.168.2.8" -e REDIS_MASTER_PASSWORD="123456" \
+	-e RUN_REDIS_PORT="6379" -p 6379:6379 \
 	tekintian/alpine-redis-sentinel:6.2
 ~~~
 

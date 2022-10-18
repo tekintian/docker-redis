@@ -15,7 +15,9 @@ LABEL org.opencontainers.image.authors="http://dev.yunnan.ws" \
 ENV REDIS_MASTER_HOST=192.168.2.8 REDIS_MASTER_PORT_NUMBER=6379 REDIS_SENTINEL_QUORUM=2 \
 	REDIS_MASTER_PASSWORD="str0ng_passw0rd" REDIS_SENTINEL_PORT_NUMBER=26379 \
 	REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000 REDIS_SENTINEL_FAILOVER_TIMEOUT=60000 \
-	PROTECTED_MODE=no DAEMONIZE=no SENTINEL_LOGFILE=""
+	PROTECTED_MODE=no DAEMONIZE=no SENTINEL_LOGFILE="" \
+	RUN_REDIS_PORT=""
+
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN addgroup -S -g 1000 redis && adduser -S -G redis -u 999 redis
@@ -112,6 +114,8 @@ VOLUME /data
 WORKDIR /data
 
 COPY docker-entrypoint.sh /usr/local/bin/
-EXPOSE ${REDIS_SENTINEL_PORT_NUMBER}
+
+EXPOSE ${REDIS_SENTINEL_PORT_NUMBER} ${RUN_REDIS_PORT}
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
