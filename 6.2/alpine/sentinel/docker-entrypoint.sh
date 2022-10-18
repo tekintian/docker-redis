@@ -8,12 +8,12 @@ if [ "${RUN_REDIS_PORT}" != '' ]; then
 	redis-server "$@" --port ${RUN_REDIS_PORT} &
 fi
 
-if [ -f "/usr/local/etc/redis/sentinel.conf" ];then
+if [ -f "${SENTINEL_CONF}" ];then
 	# sentinel.conf配置文件变量替换
-	cat /usr/local/etc/redis/sentinel.conf |/usr/bin/envsubst > /usr/local/etc/redis/sentinel.conf
-	exec redis-sentinel /usr/local/etc/redis/sentinel.conf
+	cat ${SENTINEL_CONF} |/usr/bin/envsubst > ${SENTINEL_CONF}
+	exec redis-sentinel ${SENTINEL_CONF}
 else
-	echo "sentinel config file not exist! /usr/local/etc/redis/sentinel.conf"
+	echo "sentinel config file not exist! ${SENTINEL_CONF}"
 	exit
 fi
 

@@ -1,8 +1,8 @@
-FROM tekintian/alpine:3.12
+FROM tekintian/alpine:3.16
 
 ENV REDIS_VERSION=6.2.7 \
-	REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-6.2.7.tar.gz \
-	REDIS_DOWNLOAD_SHA=b7a79cc3b46d3c6eb52fa37dde34a4a60824079ebdfb3abfbbfa035947c55319
+    REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-6.2.7.tar.gz \
+    REDIS_DOWNLOAD_SHA=b7a79cc3b46d3c6eb52fa37dde34a4a60824079ebdfb3abfbbfa035947c55319
 
 LABEL org.opencontainers.image.authors="http://dev.yunnan.ws" \
       org.opencontainers.image.description="Application packaged by tekintian@gmail.com" \
@@ -15,25 +15,22 @@ LABEL org.opencontainers.image.authors="http://dev.yunnan.ws" \
 ENV REDIS_MASTER_HOST=192.168.2.8 REDIS_MASTER_PORT_NUMBER=6379 REDIS_SENTINEL_QUORUM=2 \
 	REDIS_MASTER_PASSWORD="str0ng_passw0rd" REDIS_SENTINEL_PORT_NUMBER=26379 \
 	REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000 REDIS_SENTINEL_FAILOVER_TIMEOUT=60000 \
-	PROTECTED_MODE=no DAEMONIZE=no SENTINEL_LOGFILE="" \
+	PROTECTED_MODE=no DAEMONIZE=no SENTINEL_LOGFILE="" SENTINEL_CONF="/usr/local/etc/redis/sentinel.conf" \
 	RUN_REDIS_PORT=""
-
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN addgroup -S -g 1000 redis && adduser -S -G redis -u 999 redis
 # alpine already has a gid 999, so we'll use the next id
 
 ADD ./sentinel.conf /usr/local/etc/redis/sentinel.conf
-ADD ./envsubst /usr/bin/envsubst
 
-RUN apk add --no-cache 'su-exec>=0.2' libintl; \
+RUN apk add --no-cache 'su-exec>=0.2'; \
 	mkdir -p /data/sentinel /data/log && chown redis:redis /data; \
 	chmod -R 0777 /tmp /data; \
 	rm -rf /tmp/*
 
 RUN set -eux; \
 	\
-	chmod +x /usr/bin/envsubst ; \
 	apk add --no-cache --virtual .build-deps \
 		coreutils \
 		dpkg-dev dpkg \
