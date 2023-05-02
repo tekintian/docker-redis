@@ -9,7 +9,7 @@ ENV GOSU_VERSION 1.16
 RUN set -eux; \
 	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
-	apt-get install -y --no-install-recommends ca-certificates dirmngr gnupg wget; \
+	apt-get install -y --no-install-recommends ca-certificates gnupg wget; \
 	rm -rf /var/lib/apt/lists/*; \
 	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
 	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
@@ -26,9 +26,9 @@ RUN set -eux; \
 	gosu --version; \
 	gosu nobody true
 
-ENV REDIS_VERSION 7.0.10
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-7.0.10.tar.gz
-ENV REDIS_DOWNLOAD_SHA 1dee4c6487341cae7bd6432ff7590906522215a061fdef87c7d040a0cb600131
+ENV REDIS_VERSION 7.0.11
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-7.0.11.tar.gz
+ENV REDIS_DOWNLOAD_SHA ce250d1fba042c613de38a15d40889b78f7cb6d5461a27e35017ba39b07221e3
 
 RUN set -eux; \
 	\
