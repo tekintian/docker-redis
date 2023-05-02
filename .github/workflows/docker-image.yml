@@ -21,7 +21,10 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build the Docker image
       run: |
-        cd 6.2/alpine/
-        tag=$(date +%s)
+        tag=$(date +%Y%m%dT%H%M%S)
+         cd 6.2/alpine/
         docker build -f Dockerfile -t tekintian/alpine-redis:6.2-${tag} .
         docker push tekintian/alpine-redis:6.2-${tag}
+        cd ../../7.0/alpine/
+        docker build -f Dockerfile -t tekintian/alpine-redis:7.0-${tag} .
+        docker push tekintian/alpine-redis:7.0-${tag}
