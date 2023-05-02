@@ -14,7 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Log in to the container registry 🚪
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build the Docker image
       run: |
-        docker build --file 6.2/alpine/Dockerfile --tag tekintian/alpine-redis:6.2-$(date +%s) 6.2/alpine/
+        cd 6.2/alpine/
+        docker build -f Dockerfile -t tekintian/alpine-redis:6.2-$(date +%s) .
         docker push tekintian/alpine-redis:6.2-$(date +%s)
