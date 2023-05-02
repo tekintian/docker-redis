@@ -22,5 +22,6 @@ jobs:
     - name: Build the Docker image
       run: |
         cd 6.2/alpine/
-        docker build -f Dockerfile -t tekintian/alpine-redis:6.2-$(date +%s) .
-        docker push tekintian/alpine-redis:6.2-$(date +%s)
+        tag=$(date +%s)
+        docker build -f Dockerfile -t tekintian/alpine-redis:6.2-${tag} .
+        docker push tekintian/alpine-redis:6.2-${tag}
