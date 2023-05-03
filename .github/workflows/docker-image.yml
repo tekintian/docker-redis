@@ -50,4 +50,6 @@ jobs:
         docker tag tekintian/alpine-redis:7.2-rc-${tag} tekintian/alpine-redis
         docker push tekintian/alpine-redis
         docker tag tekintian/alpine-redis:7.2-rc-${tag} registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.2-rc-${tag}
+        docker tag tekintian/alpine-redis:7.2-rc-${tag} registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis
         docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.2-rc-${tag}
+        docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis
