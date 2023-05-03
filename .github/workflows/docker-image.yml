@@ -33,21 +33,21 @@ jobs:
         docker build -f Dockerfile -t tekintian/alpine-redis:6.0 .
         docker push tekintian/alpine-redis:6.0
         docker tag tekintian/alpine-redis:6.0 registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.0
-        docker pull registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.0
+        docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.0
         cd ../../6.2/alpine/
         docker build -f Dockerfile -t tekintian/alpine-redis:6.2 .
         docker push tekintian/alpine-redis:6.2
         docker tag tekintian/alpine-redis:6.2 registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.2
-        docker pull registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.2
+        docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:6.2
         cd ../../7.0/alpine/
         docker build -f Dockerfile -t tekintian/alpine-redis:7.0 .
         docker push tekintian/alpine-redis:7.0
         docker tag tekintian/alpine-redis:7.0 registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.0
-        docker pull registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.0
+        docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.0
         cd ../../7.2-rc/alpine/
         docker build -f Dockerfile -t tekintian/alpine-redis:7.2-rc-${tag} .
         docker push tekintian/alpine-redis:7.2-rc-${tag}
         docker tag tekintian/alpine-redis:7.2-rc-${tag} tekintian/alpine-redis
         docker push tekintian/alpine-redis
         docker tag tekintian/alpine-redis:7.2-rc-${tag} registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.2-rc-${tag}
-        docker pull registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.2-rc-${tag}
+        docker push registry.cn-hangzhou.aliyuncs.com/alpine-docker/redis:7.2-rc-${tag}
